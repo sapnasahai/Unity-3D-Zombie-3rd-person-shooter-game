@@ -1,9 +1,11 @@
-﻿
+﻿using System;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class enemymovement: MonoBehaviour
 {
+    public static event Action Died;        //
+
 
     [SerializeField] float _attackRange = 0.8f;  // set attack range to enemy for player
 
@@ -78,8 +80,8 @@ public class enemymovement: MonoBehaviour
         _navMeshAgent.enabled = false;
         _anim.SetTrigger("Died");
 
-        //enemy will disapear after die from scene view after 5 seconds
-        Destroy(gameObject, 5f);
+        Died?.Invoke();
+        Destroy(gameObject, 5f);                          //enemy will disapear after die from scene view after 5 seconds
     }
 
 
